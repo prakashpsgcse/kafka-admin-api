@@ -2,8 +2,7 @@ package com.prakash.kafka.admin.api.controller;
 
 import com.prakash.kafka.admin.api.service.MessagingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /*
 This class provides endpoints to create/delete/alter/clear topic
@@ -18,8 +17,24 @@ public class TopicController {
         return "Admin api is running";
     }
 
-    @GetMapping("/topic")
+    @PostMapping("/topic")
     public String createTopic(){
+        messagingService.createTopic();
+        return "created topic";
+    }
+
+    @DeleteMapping ("/topic")
+    public String deleteTopic(){
+        messagingService.createTopic();
+        return "created topic";
+    }
+    @PostMapping ("/topic")
+    public String clearTopic(){
+        messagingService.createTopic();
+        return "created topic";
+    }
+    @PutMapping("/topic")
+    public String alterTopic(){
         messagingService.createTopic();
         return "created topic";
     }
