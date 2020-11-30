@@ -1,14 +1,21 @@
 package com.prakash.kafka.admin.api.controller;
 
+import com.prakash.kafka.admin.api.domain.TopicRequest;
 import com.prakash.kafka.admin.api.service.MessagingService;
+import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /*
 This class provides endpoints to create/delete/alter/clear topic
  */
+@Slf4j
 @RestController
 public class TopicController {
+    private static final Logger logger
+            = LoggerFactory.getLogger(MessagingService.class);
     @Autowired
     private MessagingService messagingService;
 
@@ -18,24 +25,25 @@ public class TopicController {
     }
 
     @PostMapping("/topic")
-    public String createTopic(){
-        messagingService.createTopic();
+    public String createTopic(@RequestBody TopicRequest topicDetails){
+        logger.info("Topic create request recived : {}",topicDetails);
+        messagingService.createTopic(topicDetails);
         return "created topic";
     }
 
     @DeleteMapping ("/topic")
     public String deleteTopic(){
-        messagingService.createTopic();
+        //messagingService.createTopic();
         return "created topic";
     }
-    @PostMapping ("/topic")
+    @PostMapping ("/topic/clear")
     public String clearTopic(){
-        messagingService.createTopic();
+        //messagingService.createTopic();
         return "created topic";
     }
     @PutMapping("/topic")
     public String alterTopic(){
-        messagingService.createTopic();
+        //messagingService.createTopic();
         return "created topic";
     }
 }

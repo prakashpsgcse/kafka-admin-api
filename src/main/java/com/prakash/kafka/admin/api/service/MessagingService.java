@@ -1,8 +1,10 @@
 package com.prakash.kafka.admin.api.service;
 
+import com.prakash.kafka.admin.api.domain.TopicRequest;
+
 public interface MessagingService {
 
-    public void createTopic();
+    public void createTopic(TopicRequest topicDetails);
     public void deleteTopic();
     public void clearTopic();
     public void publishMessage();

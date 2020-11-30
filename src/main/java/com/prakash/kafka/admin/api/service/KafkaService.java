@@ -1,5 +1,6 @@
 package com.prakash.kafka.admin.api.service;
 
+import com.prakash.kafka.admin.api.domain.TopicRequest;
 import org.apache.kafka.clients.admin.AdminClient;
 import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
@@ -17,19 +18,17 @@ public class KafkaService implements MessagingService{
     private static final Logger logger
             = LoggerFactory.getLogger(MessagingService.class);
     @Override
-    public void createTopic() {
-        String brokerUrl="localhost:9092";
-        String topic="admin-test";
-        Integer partitionCount=1;
-        Short replicationFactor=1;
-        NewTopic topicDetail=new NewTopic(topic,partitionCount,replicationFactor);
-        Map<String,String> topicConfig=new HashMap<>();
-        topicConfig.put("cleanup.policy","delete");
-        topicConfig.put("retention.ms","12345");
-        topicDetail.configs(topicConfig);
+    public void createTopic(TopicRequest topicDetails) {
+        NewTopic topicDetail=new NewTopic(topicDetails.getTopicName(),topicDetails.getPartitionCount(),topicDetails.getReplicasCount());
+        if(topicDetails.getCompactedTopic()){
+            topicDetails.getTopicConfigs().put("cleanup.policy","compact");
+        }else{
+            topicDetails.getTopicConfigs().put("cleanup.policy","delete");
+        }
+        topicDetail.configs(topicDetails.getTopicConfigs());
 
         Properties brokerConfig = new Properties();
-        brokerConfig.put("bootstrap.servers", brokerUrl);
+        brokerConfig.put("bootstrap.servers", topicDetails.getBrokerUrl());
 
         AdminClient adminClient = AdminClient.create(brokerConfig);
         CreateTopicsResult result=adminClient.createTopics(Collections.singleton(topicDetail));
