@@ -5,8 +5,8 @@ import com.prakash.kafka.admin.api.domain.TopicRequest;
 public interface MessagingService {
 
     public void createTopic(TopicRequest topicDetails);
-    public void deleteTopic();
-    public void clearTopic();
+    public void deleteTopic(TopicRequest topicDetails);
+    public void clearTopic(TopicRequest topicDetails);
     public void publishMessage();
     public void consumeMessage();
     public void addACL();

@@ -32,13 +32,13 @@ public class TopicController {
     }
 
     @DeleteMapping ("/topic")
-    public String deleteTopic(){
-        //messagingService.createTopic();
+    public String deleteTopic(@RequestBody TopicRequest topicDetails){
+        messagingService.deleteTopic(topicDetails);
         return "created topic";
     }
     @PostMapping ("/topic/clear")
-    public String clearTopic(){
-        //messagingService.createTopic();
+    public String clearTopic(@RequestBody TopicRequest topicDetails){
+        messagingService.clearTopic(topicDetails);
         return "created topic";
     }
     @PutMapping("/topic")
